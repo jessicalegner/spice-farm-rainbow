@@ -1,4 +1,2 @@
-spice-farm-rainbow
-==================
+Spice Farm Rainbow
 
-Webapp to keep track of spices in my kitchen cupboards.

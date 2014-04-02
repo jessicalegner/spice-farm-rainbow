@@ -20,6 +20,8 @@ Route::post('/auth/login', array('as' => 'handleLogin', 'uses' => 'AuthControlle
 
 Route::group(array('before' => 'auth'), function() {
 
+	Route::get('/auth/logout', 'AuthController@logout');
+
 	Route::get('product/{upc}', function($upc)
 	{
 		$client = new \Guzzle\Service\Client('http://api.v3.factual.com/t/products-cpg?q="' . $upc . '"}');

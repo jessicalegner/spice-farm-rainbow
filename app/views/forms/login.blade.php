@@ -3,7 +3,7 @@
 
     @if(Session::has('error'))
         <div class="alert alert-danger text-center">
-            <h2>{{ Session::get('error') }}</h2>
+            <h4>{{ Session::get('error') }}</h4>
         </div>
     @endif
 

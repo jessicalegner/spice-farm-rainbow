@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"guzzle/guzzle": "3.8.0"
+		"guzzle/guzzle": "3.8.0",
+		"fzaninotto/faker": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

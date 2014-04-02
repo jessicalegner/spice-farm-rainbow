@@ -11,17 +11,29 @@
 |
 */
 
-Route::get('product/{upc}', function($upc)
+Route::get('/login', array('as' => 'login','uses' => function()
 {
-	// $url = 'http://api.v3.factual.com/';
-	$client = new \Guzzle\Service\Client('http://api.v3.factual.com/t/products-cpg?q="' . $upc . '"}');
-	$auth = new \Guzzle\Plugin\Oauth\OauthPlugin([
-		'consumer_key' => 'HixxECiJzhDAITGTerWl0yiHDgJAY3gJNiViLjEH',
-		'consumer_secret' => 'YBMZ3BPgVWqMU5gB6FUkwwwVoT7lYYcYZinWPJms'
-	]);
-	$client->addSubscriber($auth);
-	$response = $client->get()->send();
-	$product = $response->json()['response']['data'][0]['product_name'];
+    return View::make('forms/login');
+}));
 
-	dd($product);
+Route::post('/auth/login', array('as' => 'handleLogin', 'uses' => 'AuthController@login'));
+
+Route::group(array('before' => 'auth'), function() {
+
+	Route::get('product/{upc}', function($upc)
+	{
+		$client = new \Guzzle\Service\Client('http://api.v3.factual.com/t/products-cpg?q="' . $upc . '"}');
+		$auth = new \Guzzle\Plugin\Oauth\OauthPlugin([
+			'consumer_key' => 'HixxECiJzhDAITGTerWl0yiHDgJAY3gJNiViLjEH',
+			'consumer_secret' => 'YBMZ3BPgVWqMU5gB6FUkwwwVoT7lYYcYZinWPJms'
+		]);
+		$client->addSubscriber($auth);
+		$response = $client->get()->send();
+		$product = $response->json()['response']['data'];
+
+		dd($product);
+	});
+
+	Route::get('/', 'SpiceController@userInventory');
+
 });

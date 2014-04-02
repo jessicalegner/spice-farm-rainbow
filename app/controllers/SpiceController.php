@@ -29,7 +29,13 @@ class SpiceController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		\Eloquent::unguard();
+
+		$data = Input::all();
+		$data['user_id'] = \Auth::user()->id;
+		unset($data['_token']);
+
+		return Spice::create($data);
 	}
 
 	/**
@@ -81,6 +87,16 @@ class SpiceController extends \BaseController {
 		$user_id = \Auth::user()->id;
 		$spices = User::find($user_id)->spices()->get();
 		return View::make('userSpiceList')->withSpices($spices);
+	}
+
+	public function newSpice()
+	{
+		return View::make('forms.addSpice');
+	}
+
+	public function newSpiceWithName($name)
+	{
+		return View::make('forms.addSpice')->withName($name);
 	}
 
 }

@@ -22,6 +22,9 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::get('/auth/logout', 'AuthController@logout');
 
+	Route::get('/spice/new', 'SpiceController@newSpice');
+	Route::post('/spice/add', array('as' => 'handleAddSpice', 'uses' => 'SpiceController@store'));
+
 	Route::get('product/{upc}', function($upc)
 	{
 		$client = new \Guzzle\Service\Client('http://api.v3.factual.com/t/products-cpg?q="' . $upc . '"}');

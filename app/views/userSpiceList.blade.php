@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <h1>Your Spices</h1>
             <span class="pull-right">
-                <a href="/spice/add" class="btn btn-primary">Add</a>
+                <a href="/spice/new" class="btn btn-primary">Add New Spice</a>
             </span>
         </div>
     </div>

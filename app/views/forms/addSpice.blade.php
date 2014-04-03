@@ -8,7 +8,7 @@
                 {{ Form::label('name', '', array('class' => 'control-label')) }}
             </div>
             <div class="col-sm-3">
-                {{ Form::text('name', '', array('class' => 'form-control', 'placeholder' => 'Name of Item')) }} 
+                {{ Form::text('name', isset($name) ? $name : '', array('class' => 'form-control', 'placeholder' => 'Name of Item')) }} 
             </div>
             <div class="col-sm-1">
                  <a href="pic2shop://scan?callback=http%3A//jessicalegner.com/spice-farm-rainbow/public/spice/new/EAN" class="btn btn-primary"><i class="fa fa-barcode"></i></a>

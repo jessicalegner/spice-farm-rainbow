@@ -94,8 +94,9 @@ class SpiceController extends \BaseController {
 		return View::make('forms.addSpice');
 	}
 
-	public function newSpiceWithName($name)
+	public function newSpiceWithName($upc)
 	{
+		dd($upc);
 		return View::make('forms.addSpice')->withName($name);
 	}
 

@@ -23,6 +23,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('/auth/logout', 'AuthController@logout');
 
 	Route::get('/spice/new', 'SpiceController@newSpice');
+	Route::get('/spice/new/{upc}', 'SpiceController@newSpiceWithName');
 	Route::post('/spice/add', array('as' => 'handleAddSpice', 'uses' => 'SpiceController@store'));
 
 	Route::get('product/{upc}', function($upc)

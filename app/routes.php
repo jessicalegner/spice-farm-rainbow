@@ -25,6 +25,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('/spice/new', 'SpiceController@newSpice');
 	Route::get('/spice/new/{upc}', 'SpiceController@newSpiceWithData');
 	Route::post('/spice/add', array('as' => 'handleAddSpice', 'uses' => 'SpiceController@store'));
+	Route::get('/spice/destroy/{id}', array('as' => 'handleDeleteSpice', 'uses' => 'SpiceController@destroy'));
 
 	Route::get('/', 'SpiceController@userInventory');
 

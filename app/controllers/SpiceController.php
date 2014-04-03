@@ -80,7 +80,10 @@ class SpiceController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$spice = Spice::find($id);
+		$spice->delete();
+		
+		return Redirect::to('/');
 	}
 
 	public function userInventory() 

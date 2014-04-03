@@ -82,7 +82,7 @@ class SpiceController extends \BaseController {
 	{
 		$spice = Spice::find($id);
 		$spice->delete();
-		
+
 		return Redirect::to('/');
 	}
 
@@ -120,9 +120,9 @@ class SpiceController extends \BaseController {
 		$response = $client->get()->send()->json();
 
 		$product = [];
-		if(!empty($response['data'])) {
-			$product['name'] = $response['data'][0]['product_name'];
-			$product['manufacturer'] = $response['data'][0]['manufacturer'];
+		if(!empty($response['response']['data'])) {
+			$product['name'] = $response['response']['data'][0]['product_name'];
+			$product['manufacturer'] = $response['response']['data'][0]['manufacturer'];
 		}
 
 		return $product;

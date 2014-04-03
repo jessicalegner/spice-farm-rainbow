@@ -15,16 +15,16 @@ class UsersTableSeeder extends Seeder {
 		]);
 		$user->save();
 
-		foreach(range(1, 10) as $index)
-		{
-			$spice = new Spice([
-				'user_id' => $user->id,
-				'name' => $faker->word,
-				'expiration' => $faker->dateTimeThisDecade()
-			]);
+		// foreach(range(1, 10) as $index)
+		// {
+		// 	$spice = new Spice([
+		// 		'user_id' => $user->id,
+		// 		'name' => $faker->word,
+		// 		'expiration' => $faker->dateTimeThisDecade()
+		// 	]);
 
-			$user->spices()->save($spice);
-		}
+		// 	$user->spices()->save($spice);
+		// }
 	}
 
 }

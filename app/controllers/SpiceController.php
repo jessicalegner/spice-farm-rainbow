@@ -35,7 +35,9 @@ class SpiceController extends \BaseController {
 		$data['user_id'] = \Auth::user()->id;
 		unset($data['_token']);
 
-		return Spice::create($data);
+		Spice::create($data);
+
+		return $this->userInventory();
 	}
 
 	/**
@@ -94,13 +96,13 @@ class SpiceController extends \BaseController {
 		return View::make('forms.addSpice');
 	}
 
-	public function newSpiceWithName($upc)
+	public function newSpiceWithData($upc)
 	{
-		$name = $this->getProductName($upc);
-		return View::make('forms.addSpice')->withName($name);
+		$product = $this->getProductData($upc);
+		return View::make('forms.addSpice')->withProduct($product);
 	}
 
-	public function getProductName($upc)
+	public function getProductData($upc)
 	{
 		$client = new \Guzzle\Service\Client('http://api.v3.factual.com/t/products-cpg?q="' . $upc . '"}');
 		$auth = new \Guzzle\Plugin\Oauth\OauthPlugin([
@@ -109,7 +111,8 @@ class SpiceController extends \BaseController {
 		]);
 		$client->addSubscriber($auth);
 		$response = $client->get()->send();
-		$product = $response->json()['response']['data'][0]['product_name'];
+		$product['name'] = $response->json()['response']['data'][0]['product_name'];
+		$product['manufacturer'] = $response->json()['response']['data'][0]['manufacturer'];
 
 		return $product;
 	}

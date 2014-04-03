@@ -1,7 +1,11 @@
 @extends('layouts.default')
 @section('content')
 
-
+    @if(isset($error))
+        <div class="alert alert-danger text-center">
+            <h4>{{ $error }}</h4>
+        </div>
+    @endif
 
     {{ Form::open(array('route' => array('handleAddSpice'), 'class' => 'form-horizontal')) }}
         <h2 class="">Add Spice</h2>

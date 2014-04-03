@@ -36,8 +36,7 @@ class SpiceController extends \BaseController {
 		unset($data['_token']);
 
 		Spice::create($data);
-
-		return $this->userInventory();
+		return Redirect::to('/');
 	}
 
 	/**
@@ -99,7 +98,12 @@ class SpiceController extends \BaseController {
 	public function newSpiceWithData($upc)
 	{
 		$product = $this->getProductData($upc);
-		return View::make('forms.addSpice')->withProduct($product);
+		if (!empty($product)) {
+			return View::make('forms.addSpice')->withProduct($product);
+		} else {
+			return View::make('forms.addSpice')->withError('Cannot find that product. :(');
+		}
+		
 	}
 
 	public function getProductData($upc)
@@ -110,9 +114,13 @@ class SpiceController extends \BaseController {
 			'consumer_secret' => 'YBMZ3BPgVWqMU5gB6FUkwwwVoT7lYYcYZinWPJms'
 		]);
 		$client->addSubscriber($auth);
-		$response = $client->get()->send();
-		$product['name'] = $response->json()['response']['data'][0]['product_name'];
-		$product['manufacturer'] = $response->json()['response']['data'][0]['manufacturer'];
+		$response = $client->get()->send()->json();
+
+		$product = [];
+		if(!empty($response['data'])) {
+			$product['name'] = $response['data'][0]['product_name'];
+			$product['manufacturer'] = $response['data'][0]['manufacturer'];
+		}
 
 		return $product;
 	}
